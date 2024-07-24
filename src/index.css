@@ -1,6 +1,6 @@
 :root{
   --white: #fff;
-  --primmary:#f59e0e;
+  --primary:#f59e0e;
 }
 
 html{
@@ -9,7 +9,7 @@ html{
 
 body{
   font-family: "Outfit", sans-serif;
-  background-image: url('/public/bg_clima.jpg');
+  background-image: url('/bg_clima.jpg');
   height: 100vh;
   /* background-size: cover; toma todo el alto de la y ancho de la pantalla */
   background-size: cover;

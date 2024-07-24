@@ -13,10 +13,5 @@ function App() {
   );
 }
 
-//Prueba commit 
-
-//Prueba commit 
-
-//Prueba commit 
 
 export default App;
