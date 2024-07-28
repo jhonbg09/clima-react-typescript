@@ -20,3 +20,13 @@
         margin-top: 5rem;
     }
 }
+
+.header{
+    background: var(--primary);
+    height: 5rem;
+    margin: 0;
+  }
+
+  .header p{
+    margin: 0;
+  }
