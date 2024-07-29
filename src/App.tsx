@@ -5,7 +5,8 @@ import useWeather from "./components/hooks/useWeather";
 function App() {
 
   const { fetchWeather } = useWeather()
-  console.log(import.meta.env)
+  
+  
   return (
     <>
       <header className={styles.header}>
