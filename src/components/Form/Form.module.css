@@ -6,17 +6,22 @@
 
 .form input[type="text"], form select{
     padding: 1rem;
-    background-color: transparent;
+    /* background-color: transparent; */
+    background-color: white;
     border: .3rem solid var(--white);
-    color: var(--white);
+    /* color: var(--white); */
+    color: black;
     font-size: 1.8rem;
     font-weight: 400;
     border-radius: 1rem;
+    opacity: 0.5;
     
 }
 
 .field ::placeholder{
-    color: var(--white)
+    /* color: var(--white) */
+    color: black;
+    opacity: 0.5;
 }
 
 .submit {
