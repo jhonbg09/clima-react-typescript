@@ -22,9 +22,14 @@
 }
 
 .header{
-    background: var(--primary);
-    height: 5rem;
+    
+    height: 10rem;
     margin: 0;
+  }
+
+  .header img{
+    padding: 2rem;
+    width: 30rem;
   }
 
   .header p{

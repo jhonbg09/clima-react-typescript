@@ -11,7 +11,7 @@ function App() {
   return (
     <>
       <header className={styles.header}>
-        <p>Hola desde Header</p>
+        <img src="/log-v1.png"/>
       </header>
       <h1 className={styles.title}>Buscador de Clima</h1>
       <div className={styles.container}>
