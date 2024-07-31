@@ -66,6 +66,8 @@ export default function useWeather() {
 
   const [loading, setLoading] = useState(false)
 
+  const [notFound, setNotFound] = useState(false)
+
   const fetchWeather = async (search: SearchType) => {
     //Nuetra key la debemos ocultar por que si la dejamos en el codigo puede hacer cualquier usuario o . persona que clone el repositorio puede hacer un request y van a ser gastados del usuario de desarrollo, por ende se deben un archivo .env para agregar las variables de entorno que no quiero que se suban al repositorio. hay que evitar dejar esta informacion sencible en el codigo.
 
@@ -83,6 +85,13 @@ export default function useWeather() {
       // de esta manera me trae toda la informacion qeu hay en la URL const - data = await axios(geoUrl)
       // De esta manera me trae toda la informacion del objeto que necesito o que esto haciendo la peticion - const {data} = await axios(geoUrl)
       const { data } = await axios(geoUrl);
+
+      //Comprobacion
+
+      if(!data[0]){
+        setNotFound(true);
+        return
+      }
 
       //   Creo las variables para puder hacer la segunda peticion a la API que me llegan en la primera consulta
 
@@ -139,6 +148,7 @@ export default function useWeather() {
   return {
     weather,
     loading,
+    notFound,
     fetchWeather,
     hasWeatherData
   };
