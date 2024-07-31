@@ -1,5 +1,8 @@
 import axios from "axios";
-import { SearchType, weather } from "../../types";
+import { z } from "zod";
+import { SearchType, Weather } from "../../types";
+import { useMemo, useState } from "react";
+// import { object, string, number, Output, parse } from "valibot";
 
 // type GuardType o assertion
 
@@ -17,14 +20,60 @@ import { SearchType, weather } from "../../types";
 //   )
 // }
 
+// ZOD
+const Weather = z.object({
+// Esquima para crear en ZOD
+// name: string;
+// main: {
+//   temp: number;
+//   temp_max: number;
+//   temp_min: number;
+// };
+  name: z.string(),
+  main: z.object({
+    temp: z.number(),
+    temp_max: z.number(),
+    temp_min: z.number(),
+  })
+})
+
+export type Weather = z.infer<typeof Weather>;
+
+//VALIBOT
+// const WeatherSchema = object({
+//   name: string(),
+//   main: object({
+//     temp: number(),
+//     temp_max: number(),
+//     temp_min: number(),
+//   })
+// })
+
+// type Weather = Output<typeof WeatherSchema>
+
+const initialState = {
+  name: '',
+  main: {
+    temp: 0,
+    temp_max: 0,
+    temp_min: 0,
+  }
+}
+
 export default function useWeather() {
+
+  const [weather, setWeather] = useState<Weather>(initialState)
+
+  const [loading, setLoading] = useState(false)
+
   const fetchWeather = async (search: SearchType) => {
     //Nuetra key la debemos ocultar por que si la dejamos en el codigo puede hacer cualquier usuario o . persona que clone el repositorio puede hacer un request y van a ser gastados del usuario de desarrollo, por ende se deben un archivo .env para agregar las variables de entorno que no quiero que se suban al repositorio. hay que evitar dejar esta informacion sencible en el codigo.
 
     // con import.meta.env.VITE_API_KEY traemos la variable de entorno que esta guardando el key de la api
 
     const appId = import.meta.env.VITE_API_KEY;
-
+      setLoading(true);
+      setWeather(initialState);
     try {
       const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${appId}`;
       // asi puedo comprobar que me esta llegando la informacion y se esta consumiendo la api
@@ -62,12 +111,35 @@ export default function useWeather() {
       //   console.log(weatherResult.name)
       // }
 
-      // Libreria ZOD
+      // Libreria ZOD - npm i zod
+      const { data: weatherResult } = await axios(weatherUrl);
+      const result = Weather.safeParse(weatherResult);
+      if (result.success) {
+        setWeather(result.data);
+      }
+
+      //Valibot
+
+      // const { data: weatherResult } = await axios(weatherUrl);
+      // const result = parse(WeatherSchema, weatherResult)
+      // console.log(result)
+      // if(result){
+      //   console.log(result.name)
+      // }
+
     } catch (error) {
       console.log(error);
+    }  finally {
+      setLoading(false);
     }
   };
+
+  const hasWeatherData = useMemo(()=> weather.name ,[weather])
+
   return {
+    weather,
+    loading,
     fetchWeather,
+    hasWeatherData
   };
 }

@@ -17,7 +17,7 @@ export type Country = {
 // }
 
 // Opcion 2 Tipe Guard
-export type weather = {
+export type Weather = {
   name: string;
   main: {
     temp: number;
