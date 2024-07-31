@@ -21,10 +21,17 @@
 .submit {
     background-color: var(--primary);
     border: none;
-    color: var(--white);
+    color: var(--white); 
     font-weight: 700;
     font-size: 1.4rem;
     text-transform: uppercase;
     cursor: pointer;
     padding: 1rem;
+    border-radius: 5px;
+    transition: .3s ease-in-out;
+}
+
+.submit:hover{
+    background-color: #00c17f
+    
 }
